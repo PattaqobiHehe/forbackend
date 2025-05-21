@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="dashboard.css" />
+    <!-- Add Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <script src="otp-verification.js"></script>
+</head>
+<body>
+
+    <!-- Headbar -->
+    <div class="headbar">
+        <!-- Website Name (Centered) -->
+        <button class="buttonhead" data-text="Awesome"onclick="showSection('complaints')">
+            <span class="actual-text">&nbsp;PublicLog&nbsp;</span>
+            <span aria-hidden="true" class="hover-text">&nbsp;PublicLog&nbsp;</span>
+        </button>
+        <div class="user-profile">
+            <img src="profile-pic.jpg" alt="Profile Picture" />
+            <span>John Doe</span>
+        </div>
+</div>
+
+  <!-- Sidebar Toggle Button -->
+<input type="checkbox" id="checkbox">
+<label for="checkbox" class="toggle">
+    <div class="bars" id="bar1"></div>
+    <div class="bars" id="bar2"></div>
+    <div class="bars" id="bar3"></div>
+</label>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <ul class="nav">
+        <a href="complaintform.html" class="create-post-btn">
+            <svg xmlns="http://www.w3.org/2000/svg"width="1.25rem"height="1.25rem"viewBox="0 0 24 24"
+              fill="none"stroke="currentColor"stroke-linecap="round"stroke-linejoin="round"stroke-width="2">
+              <path d="M12 19v-7m0 0V5m0 7H5m7 0h7"></path>
+            </svg> Complaint</a>
+                  <li><a href="#" onclick="showSection('profile')"><i class="fas fa-user"></i> <span class="nav-text">Profile</span></a></li>
+        <li><a href="#" onclick="showSection('complaints')"><i class="fas fa-list"></i> <span class="nav-text">Complaints</span></a></li>
+        <li><a href="#" onclick="showSection('feed')"><i class="fas fa-rss"></i> <span class="nav-text">Feed</span></a></li>
+        <li><a href="#" onclick="showSection('notifications')"><i class="fas fa-bell"></i> <span class="nav-text">Notifications</span></a></li>
+        <li><a href="#" onclick="showSection('settings')"><i class="fas fa-cog"></i> <span class="nav-text">Settings</span></a></li>
+    </ul>   
+    <div class="logout">
+        <a href="#"><i class="fas fa-sign-out-alt"></i> <span class="nav-text">Logout</span></a>
+    </div>
+</div>
+
+<!-- Icon Strip (Visible when sidebar is hidden) -->
+<div class="icon-strip">
+    <a href="complaintform.html"><i class="fas fa-plus"></i></a>
+    <a href="#" onclick="showSection('profile')"><i class="fas fa-user"></i></a>
+    <a href="#" onclick="showSection('complaints')"><i class="fas fa-list"></i></a>
+    <a href="#" onclick="showSection('feed')"><i class="fas fa-rss"></i></a>
+    <a href="#" onclick="showSection('notifications')"><i class="fas fa-bell"></i></a>
+    <a href="#" onclick="showSection('settings')"><i class="fas fa-cog"></i></a>
+    <a href="#"><i class="fas fa-sign-out-alt"></i> </a>
+    
+</div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+
+<!-- Profile Section -->
+<div id="profile" class="profile-section">
+    <div class="profile-container">
+        <!-- Left Column - Settings Sections -->
+        <div class="profile-settings-column">
+            <!-- Password Change Section -->
+            <div class="activity-item" onclick="togglePasswordChange()">
+                <i class="fas fa-key"></i>
+                <p>Password</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="passwordChangeForm" class="password-change-form" style="display: none;">
+                <form id="passwordForm">
+                    <div class="form-group">
+                        <label for="oldPassword">Old Password</label>
+                        <input type="password" id="oldPassword" name="oldPassword" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required />
+                    </div>
+                    <button type="submit" class="save-btn">Save Password</button>
+                </form>
+            </div>
+
+            <!-- Username Change Section -->
+            <div class="activity-item" onclick="toggleUsernameChange()">
+                <i class="fas fa-user-edit"></i>
+                <p>Username Change</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="usernameChangeForm" class="password-change-form" style="display: none;">
+                <form id="usernameForm">
+                    <div class="form-group">
+                        <label for="newUsername">New Username</label>
+                        <input type="text" id="newUsername" name="newUsername" required />
+                    </div>
+                    <button type="submit" class="save-btn">Save</button>
+                </form>
+            </div>
+            <!-- Email Change Section -->
+            <div class="activity-item" onclick="toggleEmailChange()">
+                <i class="fas fa-envelope"></i>
+                <p>Email Change</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="emailChangeForm" class="password-change-form" style="display: none;">
+                <form id="emailForm">
+                    <div class="form-group">
+                        <label for="newEmail">New Email</label>
+                        <input type="email" id="newEmail" name="newEmail" required />
+                    </div>
+                    <button type="submit" class="save-btn" id="verifyEmailBtn">Verify Email</button>
+                </form>
+            </div>
+            <!-- Phone Number Change Section -->
+            <div class="activity-item" onclick="togglePhNumberChange()">
+                <i class="fas fa-user-edit"></i>
+                <p>Phone Number Change</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="numberChangeForm" class="password-change-form" style="display: none;">
+                <form id="numberForm">
+                    <div class="form-group">
+                        <label for="newNumber">Update your Phone Number</label>
+                        <input type="text" id="newNumber" name="newNumber" required />
+                    </div>
+                    <button type="submit" class="save-btn">Save</button>
+                </form>
+            </div>
+
+            <!-- Address Change Section -->
+            <div class="activity-item" onclick="toggleAddressChange()">
+                <i class="fas fa-home"></i>
+                <p>Address Change</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="addressChangeForm" class="password-change-form" style="display: none;">
+                <form id="addressForm">
+                    <div class="form-group">
+                        <label for="newAddress">New Address / Update Address</label>
+                        <input type="text" id="newAddress" name="newAddress" required />
+                    </div>
+                    <button type="submit" class="save-btn">Save</button>
+                </form>
+            </div>
+
+            <!-- Status of Complaints Section -->
+            <div class="activity-item" onclick="toggleStatusSection()">
+                <i class="fas fa-clipboard-list"></i>
+                <p>Status of your Complaints</p>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div id="statusSection" style="display: none;">
+                <div class="stats-cards">
+                    <div class="card">
+                        <h3>Submitted Complaints</h3>
+                        <p>15</p>
+                    </div>
+                    <div class="card">
+                        <h3>Resolved Complaints</h3>
+                        <p>10</p>
+                    </div>
+                    <div class="card">
+                        <h3>Pending Complaints</h3>
+                        <p>5</p>
+                    </div>
+                </div>
+                <div class="complaints-grid">
+                    <div class="complaint-card">
+                        <h4>Pothole on Main St</h4>
+                        <p>Status: <span class="status pending">Pending</span></p>
+                        <p>Submitted: 3 days ago</p>
+                    </div>
+                    <div class="complaint-card">
+                        <h4>Garbage Not Collected</h4>
+                        <p>Status: <span class="status resolved">Resolved</span></p>
+                        <p>Submitted: 1 week ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column - Profile Card -->
+        <div class="profile-card">
+            <div class="profile-header">
+              <h2>Profile Information</h2>
+            </div>
+            <div class="profile-content">
+              <div class="profile-picture-upload">
+                <div class="profile-picture-box">
+                  <img id="profilePicturePreview" src="profile-pic.jpg" alt="Profile Picture Preview" />
+                </div>
+                <label for="profilePicture" class="upload-label">
+                  <i class="fas fa-upload"></i> Upload Profile Picture
+                </label>
+                <input type="file" accept=".jpg, .jpeg, .png," id="profilePicture" name="profilePicture" accept="image/*" onchange="previewImage(event)" />
+              </div>
+              <div class="profile-details">
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Username:</strong> J_Doe123</p>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>Phone:</strong> +1234567890</p>
+                <p><strong>Address:</strong> 123 Main St, City, Country</p>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+          
+        <!-- Complaints Section (Now Contains Feed Content) -->
+        <div id="complaints" class="complaints-section" style="display: none;">
+            <h2>Your Complaints</h2>
+        <!-- Search Bar in Profile Section -->
+        <div class="search-bar">
+            <input type="text" placeholder="Search complaints..." />
+            <button><i class="fas fa-search"></i></button>
+        </div>
+
+            <!--Your Complaints -->
+            <div id="feedList">
+                <div class="post">
+                    <div class="post-header">
+                        <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic" />
+                        <span class="username">JohnDoe123</span>
+                    </div>
+                    <div class="post-content">
+                        <h3 class="subject">Pothole on Main Street</h3>
+                        <img src="complaint-image.jpg" alt="Complaint Image" class="complaint-image" />
+                        <p class="description">
+                            There are huge potholes on Main Street causing traffic issues. Please fix it ASAP!
+                        </p>
+                    </div>
+                    <div class="post-actions">
+                        <button class="like-btn">
+                            <i class="fas fa-thumbs-up"></i> <span class="like-count">12</span>
+                        </button>
+                        <button class="save-btn">
+                            <i class="fas fa-bookmark"></i> Save
+                        </button>
+                    </div>
+                    <div class="comments-section">
+                        <div class="comment">
+                            <span class="comment-username">JaneDoe456</span>
+                            <span class="comment-text">I agree, it's been there for weeks!</span>
+                        </div>
+                        <div class="comment">
+                            <span class="comment-username">Admin</span>
+                            <span class="comment-text">We've forwarded this to the concerned department.</span>
+                        </div>
+                        <input
+                            type="text"
+                            class="comment-input"
+                            placeholder="Add a comment..."
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+            <!-- Feed Section -->
+        <div id="feed" class="feed-section" style="display: none;">
+            <h2>Feed</h2>
+            <div class="feed-content">
+                            <!--Your Complaints -->
+            <div id="feedList">
+                <div class="post">
+                    <div class="post-header">
+                        <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic" />
+                        <span class="username">JohnDoe123</span>
+                    </div>
+                    <div class="post-content">
+                        <h3 class="subject">Pothole on Main Street</h3>
+                        <img src="complaint-image.jpg" alt="Complaint Image" class="complaint-image" />
+                        <p class="description">
+                            There are huge potholes on Main Street causing traffic issues. Please fix it ASAP!
+                        </p>
+                    </div>
+                    <div class="post-actions">
+                        <button class="like-btn">
+                            <i class="fas fa-thumbs-up"></i> <span class="like-count">12</span>
+                        </button>
+                        <button class="save-btn">
+                            <i class="fas fa-bookmark"></i> Save
+                        </button>
+                    </div>
+                    <div class="comments-section">
+                        <div class="comment">
+                            <span class="comment-username">JaneDoe456</span>
+                            <span class="comment-text">I agree, it's been there for weeks!</span>
+                        </div>
+                        <div class="comment">
+                            <span class="comment-username">Admin</span>
+                            <span class="comment-text">We've forwarded this to the concerned department.</span>
+                        </div>
+                        <input
+                            type="text"
+                            class="comment-input"
+                            placeholder="Add a comment..."
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+
+            <!-- Notifications Section -->
+            <div id="notifications" class="activity-section" style="display: none;">
+                <h2>Notifications    <a href="#"><i class="fas fa-bell"></i> <span class="nav-text"></span></a>
+                </span></h2> 
+                <div class="activity-feed">
+                    <div class="activity-item">
+                        <i class="fas fa-bell"></i>
+                        <p>Your complaint "Pothole on Main St" has been updated.</p>
+                    </div>
+                    <div class="activity-item">
+                        <i class="fas fa-comment"></i>
+                        <p>New comment on your complaint "Garbage Not Collected".</p>
+                    </div>
+                    <!-- More activities will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Settings Section -->
+            <div id="settings" class="activity-section" style="display: none;">
+                <h2>Settings<span>       <a href="#"><i class="fas fa-cog"></i> <span class="nav-text"></span></a>
+                </span></h2>
+
+                <!-- Dark Mode -->
+                <div class="activity-item" onclick="toggleTheme()">
+                    <i class="fas fa-palette"></i>
+                    <p>Theme</p>
+                    <label id="theme-toggle-button">
+                        <input type="checkbox" id="toggle">
+                        <svg viewBox="0 0 69.667 44" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+                          <g transform="translate(3.5 3.5)" data-name="Component 15 – 1" id="Component_15_1">
+                            
+                            
+                            <g filter="url(#container)" transform="matrix(1, 0, 0, 1, -3.5, -3.5)">
+                              <rect fill="#83cbd8" transform="translate(3.5 3.5)" rx="17.5" height="35" width="60.667" data-name="container" id="container"></rect>
+                            </g>
+                            
+                            <g transform="translate(2.333 2.333)" id="button">
+                              
+                              <g data-name="sun" id="sun">
+                                <g filter="url(#sun-outer)" transform="matrix(1, 0, 0, 1, -5.83, -5.83)">
+                                  <circle fill="#f8e664" transform="translate(5.83 5.83)" r="15.167" cy="15.167" cx="15.167" data-name="sun-outer" id="sun-outer-2"></circle>
+                                </g>
+                                <g filter="url(#sun)" transform="matrix(1, 0, 0, 1, -5.83, -5.83)">
+                                  <path fill="rgba(246,254,247,0.29)" transform="translate(9.33 9.33)" d="M11.667,0A11.667,11.667,0,1,1,0,11.667,11.667,11.667,0,0,1,11.667,0Z" data-name="sun" id="sun-3"></path>
+                                </g>
+                                <circle fill="#fcf4b9" transform="translate(8.167 8.167)" r="7" cy="7" cx="7" id="sun-inner"></circle>
+                              </g>
+                              
+                                
+                              <g data-name="moon" id="moon">
+                                <g filter="url(#moon)" transform="matrix(1, 0, 0, 1, -31.5, -5.83)">
+                                  <circle fill="#cce6ee" transform="translate(31.5 5.83)" r="15.167" cy="15.167" cx="15.167" data-name="moon" id="moon-3"></circle>
+                                </g>
+                                <g fill="#a6cad0" transform="translate(-24.415 -1.009)" id="patches">
+                                  <circle transform="translate(43.009 4.496)" r="2" cy="2" cx="2"></circle>
+                                  <circle transform="translate(39.366 17.952)" r="2" cy="2" cx="2" data-name="patch"></circle>
+                                  <circle transform="translate(33.016 8.044)" r="1" cy="1" cx="1" data-name="patch"></circle>
+                                  <circle transform="translate(51.081 18.888)" r="1" cy="1" cx="1" data-name="patch"></circle>
+                                  <circle transform="translate(33.016 22.503)" r="1" cy="1" cx="1" data-name="patch"></circle>
+                                  <circle transform="translate(50.081 10.53)" r="1.5" cy="1.5" cx="1.5" data-name="patch"></circle>
+                                </g>
+                              </g>
+                            </g>
+                            
+                            
+                            <g filter="url(#cloud)" transform="matrix(1, 0, 0, 1, -3.5, -3.5)">
+                              <path fill="#fff" transform="translate(-3466.47 -160.94)" d="M3512.81,173.815a4.463,4.463,0,0,1,2.243.62.95.95,0,0,1,.72-1.281,4.852,4.852,0,0,1,2.623.519c.034.02-.5-1.968.281-2.716a2.117,2.117,0,0,1,2.829-.274,1.821,1.821,0,0,1,.854,1.858c.063.037,2.594-.049,3.285,1.273s-.865,2.544-.807,2.626a12.192,12.192,0,0,1,2.278.892c.553.448,1.106,1.992-1.62,2.927a7.742,7.742,0,0,1-3.762-.3c-1.28-.49-1.181-2.65-1.137-2.624s-1.417,2.2-2.623,2.2a4.172,4.172,0,0,1-2.394-1.206,3.825,3.825,0,0,1-2.771.774c-3.429-.46-2.333-3.267-2.2-3.55A3.721,3.721,0,0,1,3512.81,173.815Z" data-name="cloud" id="cloud"></path>
+                            </g>
+                      
+                            
+                            <g fill="#def8ff" transform="translate(3.585 1.325)" id="stars">
+                              <path transform="matrix(-1, 0.017, -0.017, -1, 24.231, 3.055)" d="M.774,0,.566.559,0,.539.458.933.25,1.492l.485-.361.458.394L1.024.953,1.509.592.943.572Z"></path>
+                              <path transform="matrix(-0.777, 0.629, -0.629, -0.777, 23.185, 12.358)" d="M1.341.529.836.472.736,0,.505.46,0,.4.4.729l-.231.46L.605.932l.4.326L.9.786Z" data-name="star"></path>
+                              <path transform="matrix(0.438, 0.899, -0.899, 0.438, 23.177, 29.735)" d="M.015,1.065.475.9l.285.365L.766.772l.46-.164L.745.494.751,0,.481.407,0,.293.285.658Z" data-name="star"></path>
+                              <path transform="translate(12.677 0.388) rotate(104)" d="M1.161,1.6,1.059,1,1.574.722.962.607.86,0,.613.572,0,.457.446.881.2,1.454l.516-.274Z" data-name="star"></path>
+                              <path transform="matrix(-0.07, 0.998, -0.998, -0.07, 11.066, 15.457)" d="M.873,1.648l.114-.62L1.579.945,1.03.62,1.144,0,.706.464.157.139.438.7,0,1.167l.592-.083Z" data-name="star"></path>
+                              <path transform="translate(8.326 28.061) rotate(11)" d="M.593,0,.638.724,0,.982l.7.211.045.724.36-.64.7.211L1.342.935,1.7.294,1.063.552Z" data-name="star"></path>
+                              <path transform="translate(5.012 5.962) rotate(172)" d="M.816,0,.5.455,0,.311.323.767l-.312.455.516-.215.323.456L.827.911,1.343.7.839.552Z" data-name="star"></path>
+                              <path transform="translate(2.218 14.616) rotate(169)" d="M1.261,0,.774.571.114.3.487.967,0,1.538.728,1.32l.372.662.047-.749.728-.218L1.215.749Z" data-name="star"></path>
+                            </g>
+                          </g>
+                        </svg>
+                      </label>
+                </div>
+
+<!-- Inside the settings section, replace the existing notification preference item with: -->
+<div class="activity-item" onclick="toggleNotificationPreference()">
+    <i class="fas fa-bell"></i>
+    <p>Manage notification preferences</p>
+    <i class="fas fa-chevron-down"></i>
+</div>
+<div id="notificationPreferenceForm" class="password-change-form" style="display: none;">
+    <div class="notification-option">
+        <div class="notification-toggle">
+            <span>Email Notifications</span>
+            <label class="switch">
+                <input type="checkbox" id="emailNotifications" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="notification-sub-options" id="emailSubOptions">
+            <div class="notification-sub-option">
+                <span>New comments on your posts</span>
+                <label class="switch">
+                    <input type="checkbox" id="emailCommentNotifications" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="notification-sub-option">
+                <span>Status updates on complaints</span>
+                <label class="switch">
+                    <input type="checkbox" id="emailStatusNotifications" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="notification-sub-option">
+                <span>Weekly digest</span>
+                <label class="switch">
+                    <input type="checkbox" id="emailWeeklyDigest">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification-option">
+        <div class="notification-toggle">
+            <span>Push Notifications</span>
+            <label class="switch">
+                <input type="checkbox" id="pushNotifications" checked>
+                <span class="slider round"></span>
+            </label>
+        </div>
+        <div class="notification-sub-options" id="pushSubOptions">
+            <div class="notification-sub-option">
+                <span>Urgent updates</span>
+                <label class="switch">
+                    <input type="checkbox" id="pushUrgentNotifications" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="notification-sub-option">
+                <span>New messages</span>
+                <label class="switch">
+                    <input type="checkbox" id="pushMessageNotifications" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <button class="save-btn" onclick="saveNotificationPreferences()">Save Preferences</button>
+</div>
+
+
+<!-- Replace the privacy settings section with this: -->
+<div class="activity-item" onclick="togglePrivacyChanges()">
+    <i class="fas fa-lock"></i>
+    <p>Privacy Settings</p>
+    <i class="fas fa-chevron-down"></i>
+</div>
+<div id="privacySettingsForm" class="password-change-form" style="display: none;">
+    <div class="privacy-section">
+        <div class="privacy-section-header" onclick="togglePrivacySection('profileVisibility')">
+            <i class="fas fa-user"></i>
+            <span>Profile Visibility</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="privacy-section-content" id="profileVisibilitySection">
+            <div class="privacy-option">
+                <span>Make profile public</span>
+                <label class="switch">
+                    <input type="checkbox" id="publicProfile">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="privacy-option">
+                <span>Show email address</span>
+                <label class="switch">
+                    <input type="checkbox" id="showEmail">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="privacy-option">
+                <span>Show phone number</span>
+                <label class="switch">
+                    <input type="checkbox" id="showPhone">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="privacy-option">
+                <span>Show address</span>
+                <label class="switch">
+                    <input type="checkbox" id="showAddress">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="privacy-section">
+        <div class="privacy-section-header" onclick="togglePrivacySection('activityPrivacy')">
+            <i class="fas fa-chart-line"></i>
+            <span>Activity Privacy</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="privacy-section-content" id="activityPrivacySection">
+            <div class="privacy-option">
+                <span>Show my complaints publicly</span>
+                <label class="switch">
+                    <input type="checkbox" id="showComplaints" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="privacy-option">
+                <span>Show my comments</span>
+                <label class="switch">
+                    <input type="checkbox" id="showComments" checked>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="privacy-option">
+                <span>Show my likes</span>
+                <label class="switch">
+                    <input type="checkbox" id="showLikes">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="privacy-section">
+        <div class="privacy-section-header" onclick="togglePrivacySection('dataCollection')">
+            <i class="fas fa-database"></i>
+            <span>Data Collection</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="privacy-section-content" id="dataCollectionSection">
+            <div class="privacy-option">
+                <span>Allow analytics</span>
+                <label class="switch">
+                    <input type="checkbox" id="allowAnalytics">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div class="privacy-option">
+                <span>Allow personalized ads</span>
+                <label class="switch">
+                    <input type="checkbox" id="allowPersonalizedAds">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="privacy-section">
+        <div class="privacy-section-header" onclick="togglePrivacySection('searchVisibility')">
+            <i class="fas fa-search"></i>
+            <span>Search Visibility</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="privacy-section-content" id="searchVisibilitySection">
+            <div class="privacy-option">
+                <span>Appear in search results</span>
+                <label class="switch">
+                    <input type="checkbox" id="searchEngineVisibility">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="privacy-section">
+        <div class="privacy-section-header" onclick="togglePrivacySection('security')">
+            <i class="fas fa-shield-alt"></i>
+            <span>Security</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="privacy-section-content" id="securitySection">
+            <div class="privacy-option">
+                <span>Two-factor authentication (Under Developement)</span>
+                <label class="switch">
+                    <input type="checkbox" id="twoFactorAuth">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <button class="save-btn" onclick="savePrivacySettings()">Save Privacy Settings</button>
+</div>
+
+                <div class="activity-item" onclick = "toggleFAQ()">
+                    <i class="fas fa-lightbulb"></i>
+                    <p>FAQ - Frequently Asked Questions</p>
+                    <i class="fas fa-chevron-down"></i> 
+                </div>
+                <!-- Report Bug Section -->
+                <div class="activity-item" onclick="toggleReportBug()">
+                    <i class="fas fa-bug"></i>
+                    <p>Report a Bug</p>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div id="ReportBugForm" class="password-change-form" style="display: none;">
+                    <p>Found an issue? Click the button below to report it.</p>
+                    <button class="save-btn" id="openBugReportModal">Report a Bug</button>
+                </div>
+                
+                <div class="activity-item" onclick = "toggleAbout()">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <p>About</p>
+                    <i class="fas fa-chevron-down"></i> 
+                </div>
+
+                    <!-- More settings options will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Success Message -->
+    <div id="successMessage" class="card1" style="display: none; position: fixed; bottom: 20px; left: 20px;">
+        <svg class="wave" viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0,256L11.4,240C22.9,224,46,192,69,192C91.4,192,114,224,137,234.7C160,245,183,235,206,213.3C228.6,192,251,160,274,149.3C297.1,139,320,149,343,181.3C365.7,213,389,267,411,282.7C434.3,299,457,277,480,250.7C502.9,224,526,192,549,181.3C571.4,171,594,181,617,208C640,235,663,277,686,256C708.6,235,731,149,754,122.7C777.1,96,800,128,823,165.3C845.7,203,869,245,891,224C914.3,203,937,117,960,112C982.9,107,1006,181,1029,197.3C1051.4,213,1074,171,1097,144C1120,117,1143,107,1166,133.3C1188.6,160,1211,224,1234,218.7C1257.1,213,1280,139,1303,133.3C1325.7,128,1349,192,1371,192C1394.3,192,1417,128,1429,96L1440,64L1440,320L1428.6,320C1417.1,320,1394,320,1371,320C1348.6,320,1326,320,1303,320C1280,320,1257,320,1234,320C1211.4,320,1189,320,1166,320C1142.9,320,1120,320,1097,320C1074.3,320,1051,320,1029,320C1005.7,320,983,320,960,320C937.1,320,914,320,891,320C868.6,320,846,320,823,320C800,320,777,320,754,320C731.4,320,709,320,686,320C662.9,320,640,320,617,320C594.3,320,571,320,549,320C525.7,320,503,320,480,320C457.1,320,434,320,411,320C388.6,320,366,320,343,320C320,320,297,320,274,320C251.4,320,229,320,206,320C182.9,320,160,320,137,320C114.3,320,91,320,69,320C45.7,320,23,320,11,320L0,320Z" fill-opacity="1" fill="#04e4003a"></path>
+        </svg>
+
+        <div class="icon-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" stroke-width="0" fill="currentColor" stroke="currentColor" class="icon">
+                <path d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-111 111-47-47c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l64 64c9.4 9.4 24.6 9.4 33.9 0L369 209z" fill="#269b24"></path>
+            </svg>
+        </div>
+        <div class="message-text-container">
+            <p class="message-text">Form Submitted Successfully</p>
+            <p class="sub-text">Your complaint has been recorded.</p>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 15" stroke-width="0" fill="none" stroke="currentColor" class="cross-icon">
+            <path fill="currentColor" d="M11.7816 4.03157C12.0062 3.80702 12.0062 3.44295 11.7816 3.2184C11.5571 2.99385 11.193 2.99385 10.9685 3.2184L7.50005 6.68682L4.03164 3.2184C3.80708 2.99385 3.44301 2.99385 3.21846 3.2184C2.99391 3.44295 2.99391 3.80702 3.21846 4.03157L6.68688 7.49999L3.21846 10.9684C2.99391 11.193 2.99391 11.557 3.21846 11.7816C3.44301 12.0061 3.80708 12.0061 4.03164 11.7816L7.50005 8.31316L10.9685 11.7816C11.193 12.0061 11.5571 12.0061 11.7816 11.7816C12.0062 11.557 12.0062 11.193 11.7816 10.9684L8.31322 7.49999L11.7816 4.03157Z" clip-rule="evenodd" fill-rule="evenodd"></path>
+        </svg>
+    </div>
+
+    <script>
+        // Function to show the selected section and hide others
+        function showSection(sectionId) {
+      const sections = ['profile', 'complaints', 'feed', 'notifications', 'settings']; // Added 'feed'
+      sections.forEach(section => {
+          const element = document.getElementById(section);
+          if (section === sectionId) {
+              element.style.display = 'block';
+          } else {
+              element.style.display = 'none';
+          }
+      });
+  }
+        // Function to preview the uploaded image
+        function previewImage(event) {
+            const reader = new FileReader();
+            const preview = document.getElementById('profilePicturePreview');
+            reader.onload = function() {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        // Check for the success query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const success = urlParams.get('success');
+
+        if (success === 'true') {
+            const successMessage = document.getElementById('successMessage');
+            successMessage.style.display = 'block';
+
+            // Automatically hide the message after 5 seconds
+            setTimeout(() => {
+                successMessage.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+
+    <!-- Bug Report Modal -->
+<div id="bugReportModal" class="modal">
+    <div class="bug-modal-content">
+      <div class="bug-modal-header">
+        <h2>Report a Bug</h2>
+        <span class="close-bug-modal">&times;</span>
+      </div>
+      <form id="bugReportForm">
+        <textarea id="bugDescription" rows="5" placeholder="Please describe the bug in detail, including steps to reproduce it..." required></textarea>
+        
+        <label for="fileUpload" class="tooltip"><p><span class="fas fa-plus"></span> Upload a screenshot</p>
+            <span class="tooltiptext">.pdf .jpeg .jpg</span>
+          </label>
+          <input type="file" id="fileUpload" accept="image/*" style="display: none;">
+        <div id="bugReportMessage"></div>
+        <div class="bug-modal-footer"> 
+            <button type="button" class="save-btn secondary" id="cancelBugReport">Cancel</button>
+              <button type="submit" class="save-btn">Submit Report</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <!-- OTP Modal (Popup) -->
+    <div id="otpModal" class="otp-modal">
+      <div class="otp-Form">
+        <span class="mainHeading">Enter OTP</span>
+        <p class="otpSubheading">We have sent a verification code to your email</p>
+        <div class="inputContainer">
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4" />
+        </div>
+        <button class="verifyButton" type="button" onclick="verifyOTP()">Verify</button>
+        <button class="exitBtn" onclick="closeOtpModal()">×</button>
+        <p class="resendNote">Didn't receive the code? <button class="resendBtn" onclick="resendOTP()">Resend Code</button></p>
+      </div>
+    </div>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<!-- Your existing JS -->
+<script src="js/dashboard.js"></script>  <!-- Example - adjust filenames -->
+</body>
+</html>

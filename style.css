@@ -1,0 +1,780 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 650px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 28px;
+    margin: 0 28px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  }
+  body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    
+  }
+  .form-title {
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    padding-bottom: 10px;
+    color: #2c3e50;
+    border-bottom: solid 2px #3498db;
+  }
+  
+  .main-user-info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 0;
+  }
+
+/* Google Button  */
+/* Fancy Google hover button made by: csozi | Website: www.csozi.hu*/
+
+.button-g {
+  padding: 10px;
+  font-weight: bold;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  border-radius: 35px;
+  align-items: center;
+  border: solid black 2px;
+  outline: none;
+}
+
+.svg {
+  height: 25px;
+  margin-right: 10px;
+}
+
+.button-g .text {
+  z-index: 10;
+  font-size: 14px;
+}
+
+.button-g:hover .text {
+  animation: text forwards 0.3s;
+  /*color: white;*/
+}
+
+@keyframes text {
+  from {
+    color: black;
+  }
+
+  to {
+    color: white;
+  }
+}
+
+.svg {
+  z-index: 6;
+}
+
+.button-g:hover::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 9%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  opacity: 0;
+  border-radius: 300px;
+  animation: wave1 2.5s ease-in-out forwards;
+}
+
+.button-g:hover::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 9%;
+  transform: translate(-50%, -50%);
+  width: 0;
+  height: 0;
+  opacity: 0;
+  border-radius: 300px;
+  animation: wave2 2.5s ease-in-out forwards;
+}
+
+@keyframes wave1 {
+  0% {
+    z-index: 1;
+    background: #EB4335;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  1% {
+    z-index: 1;
+    background: #EB4335;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  25% {
+    z-index: 1;
+    background: #EB4335;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+
+  26% {
+    z-index: 3;
+    background: #34A853;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  50% {
+    z-index: 3;
+    background: #34A853;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+
+  70% {
+    z-index: 3;
+    background: #34A853;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+
+  100% {
+    z-index: 3;
+    background: #34A853;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+}
+
+@keyframes wave2 {
+  0% {
+    z-index: 2;
+    background: #FBBC05;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  11% {
+    z-index: 2;
+    background: #FBBC05;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  35% {
+    z-index: 2;
+    background: #FBBC05;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+
+  39% {
+    z-index: 2;
+    background: #FBBC05;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+
+  40% {
+    z-index: 4;
+    background: #4285F4;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  64% {
+    z-index: 4;
+    background: #4285F4;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+
+  100% {
+    z-index: 4;
+    background: #4285F4;
+    width: 800px;
+    height: 800px;
+    opacity: 1;
+  }
+}
+
+.button-g:hover .red {
+  animation: disappear 0.1s forwards;
+  animation-delay: 0.1s;
+}
+
+.button-g:hover .yellow {
+  animation: disappear 0.1s forwards;
+  animation-delay: 0.3s;
+}
+
+.button-g:hover .green {
+  animation: disappear 0.1s forwards;
+  animation-delay: 0.7s;
+}
+
+.button-g:hover .blue {
+  animation: disappear 0.1s forwards;
+  animation-delay: 1.1s;
+}
+
+@keyframes disappear {
+  from {
+    filter: brightness(1);
+  }
+
+  to {
+    filter: brightness(100);
+  }
+}
+
+/* Add to your style.css */
+.dev-mode-bypass-notice {
+  color: #ff5722;
+  background: #fff3e0;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 10px 0;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #ffcc80;
+}
+
+.separator {
+  width: 100%;
+  text-align: center;
+  margin: 20px 0;
+  color: #666;
+  font-weight: bold;
+  position: relative;
+}
+
+.separator::before,
+.separator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 45%;
+  height: 1px;
+  background: #ddd;
+}
+
+.separator::before {
+  left: 0;
+}
+
+.separator::after {
+  right: 0;
+}
+
+.usernametip {
+  position: relative;
+  display: inline-block;
+  margin-left: 4px;
+  cursor: pointer;
+  font-family: "Arial", sans-serif;
+}
+
+.usernametip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 200px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  margin-left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #333 transparent;
+}
+
+.usernametip .tooltip {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  font-size: 15px;
+  margin-bottom: 2px;
+  background-color: #4c6daf;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 16px;
+}
+
+
+  .email-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 5px;
+    width: 100%;
+  }
+  
+  .email-container .user-input-box {
+    flex: 1;
+    margin-bottom: 0;
+  }
+  
+  .email-container .bt {
+    margin-bottom: 17px; 
+    height: 40px; 
+    width: 90px; 
+  } 
+  
+.gender-title {
+  color: #2c3e50;
+  font-size: 22px; 
+  margin-bottom: 8px;
+  border-bottom: 2px solid #3498db;
+}
+
+
+
+.radio-buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 10px;
+}
+
+.radio-button {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
+
+.radio-button__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.radio-button__label {
+  display: inline-block;
+  padding-left: 30px;
+  margin-bottom: 10px;
+  position: relative;
+  font-size: 16px;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.radio-button__custom {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #555;
+  transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.radio-button__input:checked + .radio-button__label .radio-button__custom {
+  transform: translateY(-50%) scale(0.9);
+  border: 5px solid #3498db;
+  color: #3498db;
+}
+
+.radio-button__input:checked + .radio-button__label {
+  color: #3498db;
+}
+
+.radio-button__label:hover .radio-button__custom {
+  transform: translateY(-50%) scale(1.2);
+  border-color: #3498db;
+  box-shadow: 0 0 10px #4c8bf580;
+}
+
+
+  /* Send OTP Button */
+
+  .bt {
+    border: none;
+    user-select: none;
+    font-size: 13px;
+    color: white;
+    text-align: center;
+    background-color: #0873bd;
+    border-radius: 8px;
+    transition: all 0.1s ease;
+    position: relative;
+  }
+ 
+  .msg {
+    height: 0;
+    width: 0;
+    border-radius: 2px;
+    position: absolute; 
+    left: 15%;
+    top: 25%;
+  }
+  
+  .bt:active {
+    transition: all 0.001s ease;
+    background-color: #56565b;
+    transform: translateX(1px) translateY(1px);
+  }
+  
+  .bt:hover .msg {
+    animation: msgRun 2s forwards;
+  }
+  
+  @keyframes msgRun {
+    0% {
+      border-top: #d6d6d9 0 solid;
+      border-bottom: #f2f2f5 0 solid;
+      border-left: #f2f2f5 0 solid;
+      border-right: #f2f2f5 0 solid;
+    }
+  
+    20% {
+      border-top: #d6d6d9 8px solid;
+      border-bottom: #f2f2f5 8px solid;
+      border-left: #f2f2f5 12px solid;
+      border-right: #f2f2f5 12px solid;
+    }
+  
+    25% {
+      border-top: #d6d6d9 8px solid;
+      border-bottom: #f2f2f5 8px solid;
+      border-left: #f2f2f5 12px solid;
+      border-right: #f2f2f5 12px solid;
+    }
+  
+    80% {
+      border-top: transparent 8px solid;
+      border-bottom: transparent 8px solid;
+      border-left: transparent 12px solid;
+      border-right: transparent 12px solid;
+    }
+  
+    100% {
+      transform: translateX(80px);
+      border-top: transparent 8px solid;
+      border-bottom: transparent 8px solid;
+      border-left: transparent 12px solid;
+      border-right: transparent 12px solid;
+    }
+  }
+
+
+  
+  /* OTP Modal Styles */
+.otp-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.otp-Form {
+  width: 230px;
+  height: 300px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 30px;
+  gap: 20px;
+  position: relative;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.082);
+  border-radius: 15px;
+}
+
+.mainHeading {
+  font-size: 1.1em;
+  color: rgb(15, 15, 15);
+  font-weight: 700;
+}
+
+.otpSubheading {
+  font-size: 0.7em;
+  color: black;
+  line-height: 17px;
+  text-align: center;
+}
+
+.inputContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-input {
+  background-color: rgb(228, 228, 228);
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border: none;
+  border-radius: 7px;
+  caret-color: #0873bd(127, 129, 255);
+  color: rgb(44, 44, 44);
+  outline: none;
+  font-weight: 600;
+}
+
+.otp-input:focus,
+.otp-input:valid {
+  background-color: rgba(127, 129, 255, 0.199);
+  transition-duration: 0.3s;
+}
+
+.verifyButton {
+  width: 100%;
+  height: 30px;
+  border: none;
+  background-color: #0873bd;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition-duration: 0.2s;
+}
+
+.verifyButton:hover {
+  background-color: #56565b;
+  transition-duration: 0.2s;
+}
+
+.exitBtn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.171);
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  border: none;
+  color: black;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.resendNote {
+  font-size: 0.7em;
+  color: black;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.resendBtn {
+  background-color: transparent;
+  border: none;
+  color: #0873bd;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+      
+.error-message {
+  color: #d32f2f;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.invalid {
+  border-color: #d32f2f !important;
+}
+
+.email-container {
+  position: relative;
+}
+
+.email-container .error-message {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+}
+
+/* Complaint form*/
+/* General Styles */
+/* General Styles */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; 
+  min-height: 100vh; 
+  background: linear-gradient(90deg, #e2e2e2, #696a6d);
+  background-size: cover;
+  padding: 20px; 
+}
+
+.container {
+  width: 100%;
+  max-width: 650px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 28px;
+  margin: 20px 0; 
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.form-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 10px;
+  color: #2c3e50;
+  border-bottom: solid 2px #0873bd;
+}
+
+.main-user-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.user-input-box {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.user-input-box label {
+  width: 100%;
+  color: #34495e;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 5px 0;
+}
+
+.user-input-box input,
+.user-input-box select,
+.user-input-box textarea {
+  height: 45px;
+  width: 100%;
+  border-radius: 8px;
+  outline: none;
+  border: 2px solid #bdc3c7;
+  padding: 0 12px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.user-input-box textarea {
+  height: 120px;
+  padding: 12px;
+}
+
+.user-input-box input:focus,
+.user-input-box select:focus,
+.user-input-box textarea:focus {
+  border-color: #0873bd;
+}
+
+.small-text {
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
+}
+
+.small-text a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+.small-text a:hover {
+  text-decoration: underline;
+}
+
+.form-submit-btn {
+  margin-top: 30px;
+}
+.form-submit-btn {
+  margin-top: 10px;
+  width: 100%; 
+  text-align: center; 
+}
+
+.form-submit-btn input {
+  display: inline-block; 
+  width: 600px; 
+  padding: 12px 24px; 
+  font-size: 18px;
+  border: none; 
+  border-radius: 8px;
+  color: white;
+  background: #0873bd;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.form-submit-btn input:active {
+  background: #56565b;
+}
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Registration Form with OTP</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="favicon.png" type="image/x-icon" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!--Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="/config.js"></script>
+    <script src="otp-verification.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="form-title">User Registration</h1>
+      <form id="registrationForm" action="#" method="POST">
+        <div class="main-user-info">
+          <button class="button-g" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262" class="svg">
+            <path fill="#4285F4" d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" class="blue"></path>
+            <path fill="#34A853" d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" class="green"></path>
+            <path fill="#FBBC05" d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" class="yellow"></path>
+            <path fill="#EB4335" d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" class="red"></path>
+          </svg>
+          <span class="text">Continue with Google</span>
+        </button>
+        <div id="dev-mode-notice" style="display: none;" class="dev-mode-bypass-notice">
+          DEV MODE: Google Sign-In bypassed - using test account
+        </div>
+          <div class="separator">OR</div>
+
+          <div class="user-input-box">
+            <label for="fullName">Full Name / पुरा नाम *​</label>
+            <input type="text" id="fullName" name="fullName" placeholder="Enter Full Name" required />
+          </div>
+          <div class="user-input-box">
+            <label for="username">
+              Username / प्रयोक्ता नाम *<span class="usernametip">
+              <span class="tooltip"> i
+                <span class="tooltiptext">Username will be used to log into your account</span>
+              </span>
+            </span>
+          </label>
+            <input type="text" id="username" name="username" placeholder="Enter Username" required />
+          </div>
+          
+          <div class="email-container">
+            <div class="user-input-box">
+              <label for="email">Email / ईमेल *</label>
+              <input type="email" id="email" name="email" placeholder="email@company.com" required />
+            </div>
+            <button class="bt" id="bt" type="button" onclick="showOtpModal()"><span class="msg" id="msg"></span>Send OTP</button>
+          </div>
+          <div class="user-input-box">
+            <label for="phone-number">Phone Number / फ़ोन नंबर</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Mobile Number - 10 digits" required />
+          </div>
+          <div class="user-input-box">
+            <label for="houseNumber">House Number / घर नंबर *</label>
+            <input type="text" id="houseNumber" name="houseNumber" placeholder="Enter House Number" required />
+          </div>
+          <div class="user-input-box">
+            <label for="address">Address / पता *</label>
+            <input type="text" id="address" name="address" placeholder="Enter Address" required />
+          </div>
+          <div class="user-input-box">
+            <label for="password">Password / पासवर्ड *</label>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required />
+          </div>
+        
+          <div class="gender-details-box">
+            <span class="gender-title">Gender / लिंग *</span>
+            <div class="radio-buttons-container">
+              <div class="radio-button">
+                <input name="radio-group" id="radio2" class="radio-button__input" type="radio">
+                <label for="radio2" class="radio-button__label">
+                  <span class="radio-button__custom"></span>
+                  Male
+                </label>
+              </div>
+              <div class="radio-button">
+                <input name="radio-group" id="radio1" class="radio-button__input" type="radio">
+                <label for="radio1" class="radio-button__label">
+                  <span class="radio-button__custom"></span>
+                  Female
+                </label>
+              </div>
+              <div class="radio-button">
+                <input name="radio-group" id="radio3" class="radio-button__input" type="radio">
+                <label for="radio3" class="radio-button__label">
+                  <span class="radio-button__custom"></span>
+                  Other
+                </label>
+              </div>
+            </div>
+          </div> <!-- This closing tag was missing -->
+
+          <!-- reCAPTCHA widget -->
+          <div class="g-recaptcha" data-sitekey="6LeuUOYqAAAAAFgYvcoiGTr6pRptRhUMtbJq_EKC"></div>
+          
+          <!-- Register Button -->
+          <div class="form-submit-btn">
+            <input type="submit" id="registerBtn" value="Register"  />
+          </div>
+          
+          <p class="login-link">
+            Already have an account? <a href="login.html">Login</a>
+          </p>
+        </div>
+      </form>
+    </div>
+
+    <!-- OTP Modal (Popup) -->
+    <div id="otpModal" class="otp-modal">
+      <div class="otp-Form">
+        <span class="mainHeading">Enter OTP</span>
+        <p class="otpSubheading">We have sent a verification code to your email</p>
+        <div class="inputContainer">
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input1" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input2" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input3" />
+          <input required="required" maxlength="1" type="text" class="otp-input" id="otp-input4" />
+        </div>
+        <button class="verifyButton" type="button" onclick="verifyOtp()">Verify</button>
+        <button class="exitBtn" onclick="closeOtpModal()">×</button>
+        <p class="resendNote">Didn't receive the code? <button class="resendBtn" onclick="resendOtp()">Resend Code</button></p>
+      </div>
+    </div>
+
+    <!-- Username Modal for Google Sign-In -->
+    <div id="usernameModal" class="otp-modal">
+      <div class="otp-Form">
+        <span class="mainHeading">Choose a Username</span>
+        <p class="otpSubheading">Please choose a username to complete registration</p>
+        <div class="user-input-box">
+          <input type="text" id="googleUsername" name="googleUsername" placeholder="Enter Username" required />
+        </div>
+        <button class="verifyButton" type="button" onclick="submitGoogleRegistration()">Submit</button>
+        <button class="exitBtn" onclick="closeUsernameModal()">×</button>
+      </div>
+    </div>
+
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<!-- Your existing JS -->
+<script src="js/script.js"></script>  <!-- Example - adjust filenames -->
+
+    <!-- Link to external JavaScript file -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+
+    
+      // Auto-tab between OTP inputs
+      document.addEventListener('DOMContentLoaded', () => {
+        const otpInputs = document.querySelectorAll('.otp-input');
+        
+        otpInputs.forEach((input, index) => {
+          input.addEventListener('input', () => {
+            if (input.value.length === 1 && index < otpInputs.length - 1) {
+              otpInputs[index + 1].focus();
+            }
+          });
+          
+          input.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' && !input.value && index > 0) {
+              otpInputs[index - 1].focus();
+            }
+          });
+        });
+      });
+    </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('registrationForm');
+    
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent actual form submission
+
+      // TODO: Add validation, Firebase calls, or OTP verification logic here if needed
+
+      // Simulate successful registration, then redirect
+      window.location.href = 'dashboard.html';
+    });
+  });
+</script>
+
+  </body>
+</html>
