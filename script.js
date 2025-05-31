@@ -82,6 +82,7 @@ function initGoogleSignIn() {
 
 // OTP Functions
 function showOtpModal() {
+  alert("OTP button clicked"); // ✅ To confirm the click is working at all
   const emailInput = document.getElementById('email');
   const email = emailInput.value.trim();
   
