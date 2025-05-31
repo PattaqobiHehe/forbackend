@@ -24,8 +24,8 @@ const OTPManager = (function() {
   
       try {
         const response = await emailjs.send(
-          window.appConfig.EMAILJS_SERVICE_ID,
-          window.appConfig.EMAILJS_TEMPLATE_ID,
+          window.appConfig.rjCEs-TNXiSnm1aJb,
+          window.appConfig.template_5xqf0yj,
           {
             to_email: email,
             otp_code: generatedOtp,
