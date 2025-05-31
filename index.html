@@ -13,9 +13,20 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <script src="config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script src="otp-verification.js"></script>
+     <!-- Load EmailJS library -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+<!-- Load your config.js correctly (relative path) -->
+<script src="config.js"></script>
+
+<!-- Initialize EmailJS -->
+<script>
+  emailjs.init(window.appConfig.EMAILJS_USER_ID);
+</script>
+
+<!-- Now load the rest of your scripts -->
+<script src="otp-verification.js"></script>
+<script src="script.js"></script>
   </head>
   <body>
     <div class="container">
