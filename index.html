@@ -147,11 +147,7 @@
       </div>
     </div>
 
-    <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-auth-compat.js"></script>
-<script src="js/firebase-config.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <!-- Your existing JS -->
 <script src="js/script.js"></script>  <!-- Example - adjust filenames -->
 
@@ -185,8 +181,6 @@
     
     form.addEventListener('submit', function (e) {
       e.preventDefault(); // Prevent actual form submission
-
-      // TODO: Add validation, Firebase calls, or OTP verification logic here if needed
 
       // Simulate successful registration, then redirect
       window.location.href = 'dashboard.html';
