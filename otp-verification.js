@@ -23,15 +23,23 @@ const OTPManager = (function() {
       }
   
       try {
-        const response = await emailjs.send(
-          window.appConfig.EMAILJS_SERVICE_ID,
-          window.appConfig.EMAILJS_TEMPLATE_ID,
-          {
-            to_email: email,
-            otp_code: generatedOtp,
-            expiry_time: "10 minutes"
-          }
-        );
+  const response = await emailjs.send(
+    window.appConfig.EMAILJS_SERVICE_ID,
+    window.appConfig.EMAILJS_TEMPLATE_ID,
+    {
+      to_email: email,
+      otp_code: generatedOtp,
+      expiry_time: "10 minutes"
+    }
+  );
+
+  alert("Response Status: " + response.status);
+  return response.status === 200;
+} catch (error) {
+  alert("EmailJS Error: " + JSON.stringify(error));
+  console.error("EmailJS error:", error);
+  return false;
+    }
         
         console.log("OTP sent successfully to:", email);
         return response.status === 200;
