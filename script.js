@@ -7,7 +7,7 @@ function initEmailJS() {
     console.error("EmailJS configuration not found");
     if (devMode) {
       console.log("[DEV MODE] Using test EmailJS configuration");
-      emailjs.init("service_62qteg8"); // Replace with your actual ID
+      emailjs.init("rjCEs-TNXiSnm1aJb"); // Replace with your actual ID
     }
     return false;
   }
