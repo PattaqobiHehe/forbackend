@@ -1,4 +1,4 @@
-const devMode = false; // Set to false for production
+const devMode = false;
 let isEmailVerified = false;
 
 // Initialize EmailJS
@@ -7,24 +7,19 @@ function initEmailJS() {
     console.error("EmailJS configuration not found");
     if (devMode) {
       console.log("[DEV MODE] Using test EmailJS configuration");
-      emailjs.init("rjCEs-TNXiSnm1aJb"); // Replace with your actual ID
+      emailjs.init("rjCEs-TNXiSnm1aJb");
     }
     return false;
   }
-  
   emailjs.init(window.appConfig.EMAILJS_USER_ID);
   console.log("EmailJS initialized successfully");
   return true;
 }
 
-// Google Sign-In Functions
+// Google Sign-In
 function handleCredentialResponse(response) {
   if (devMode) {
-    console.log("[DEV MODE] Bypassing Google authentication");
-    const testUser = {
-      email: "test@example.com",
-      name: "Test User"
-    };
+    const testUser = { email: "test@example.com", name: "Test User" };
     document.getElementById('registrationForm').style.display = 'none';
     document.getElementById('googleUsername').placeholder = testUser.email;
     showUsernameModal();
@@ -45,11 +40,7 @@ function handleCredentialResponse(response) {
 
 function initGoogleSignIn() {
   if (devMode) {
-    console.log("[DEV MODE] Skipping Google Sign-In initialization");
-    document.querySelector('.button-g').addEventListener('click', () => {
-      console.log("[DEV MODE] Simulating Google Sign-In");
-      handleCredentialResponse({});
-    });
+    document.querySelector('.button-g').addEventListener('click', () => handleCredentialResponse({}));
     return;
   }
 
@@ -68,11 +59,7 @@ function initGoogleSignIn() {
   googleSignInDiv.style.display = 'none';
   document.body.appendChild(googleSignInDiv);
 
-  google.accounts.id.renderButton(googleSignInDiv, { 
-    type: 'icon', 
-    size: 'large',
-    theme: 'outline'
-  });
+  google.accounts.id.renderButton(googleSignInDiv, { type: 'icon', size: 'large', theme: 'outline' });
 
   document.querySelector('.button-g').addEventListener('click', () => {
     const googleButton = googleSignInDiv.querySelector('div[role=button]');
@@ -80,21 +67,19 @@ function initGoogleSignIn() {
   });
 }
 
-// OTP Functions
+// OTP
 function showOtpModal() {
-  alert("OTP button clicked"); // ✅ To confirm the click is working at all
   const emailInput = document.getElementById('email');
   const email = emailInput.value.trim();
-  
   if (!OTPManager.validateEmail(email)) {
     showError(emailInput, "Please enter a valid email first");
     return;
   }
-  
+
   const otpButton = document.getElementById('bt');
   otpButton.disabled = true;
   otpButton.textContent = 'Sending...';
-  
+
   OTPManager.sendOTP(email).then(success => {
     if (success) {
       document.getElementById('otpModal').style.display = 'flex';
@@ -110,11 +95,9 @@ function showOtpModal() {
 }
 
 function verifyOtp() {
-  const otp1 = document.getElementById('otp-input1').value;
-  const otp2 = document.getElementById('otp-input2').value;
-  const otp3 = document.getElementById('otp-input3').value;
-  const otp4 = document.getElementById('otp-input4').value;
-  const enteredOtp = otp1 + otp2 + otp3 + otp4;
+  const enteredOtp = ['otp-input1', 'otp-input2', 'otp-input3', 'otp-input4']
+    .map(id => document.getElementById(id).value)
+    .join('');
 
   if (OTPManager.verifyOTP(enteredOtp)) {
     isEmailVerified = true;
@@ -129,11 +112,9 @@ function verifyOtp() {
 
 function updateResendUI(seconds, canResend) {
   const resendNote = document.querySelector('.resendNote');
-  if (canResend) {
-    resendNote.innerHTML = 'Didn\'t receive the code? <button class="resendBtn" onclick="resendOtp()">Resend Code</button>';
-  } else {
-    resendNote.textContent = `Resend OTP in ${seconds} seconds`;
-  }
+  resendNote.innerHTML = canResend
+    ? `Didn't receive the code? <button class="resendBtn" onclick="resendOtp()">Resend Code</button>`
+    : `Resend OTP in ${seconds} seconds`;
 }
 
 function resendOtp() {
@@ -142,7 +123,6 @@ function resendOtp() {
     alert('Please enter your email first');
     return;
   }
-  
   OTPManager.sendOTP(email).then(success => {
     if (success) {
       OTPManager.startResendTimer(updateResendUI);
@@ -156,36 +136,15 @@ function closeOtpModal() {
   OTPManager.clearTimer();
 }
 
-// Form Validation
+// Validation
 const validationConfig = {
-  fullName: {
-    pattern: /^[A-Za-z\s]{1,32}$/,
-    message: "Full name should contain only letters and spaces (max 32 characters)",
-  },
-  username: {
-    pattern: /^[a-zA-Z0-9]{1,32}$/,
-    message: "Username should contain only letters and numbers (max 32 characters)",
-  },
-  email: {
-    pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/,
-    message: "Please enter a valid email address",
-  },
-  phoneNumber: {
-    pattern: /^[6-9][0-9]{9}$/,
-    message: "Phone number must start with 6-9 and have 10 digits",
-  },
-  houseNumber: {
-    pattern: /^.+$/,
-    message: "Please enter a valid house number",
-  },
-  address: {
-    pattern: /^.+$/,
-    message: "Please enter a valid address",
-  },
-  password: {
-    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{6,}$/,
-    message: "Password must be at least 6 characters with an uppercase, lowercase and number.",
-  },
+  fullName: { pattern: /^[A-Za-z\s]{1,32}$/, message: "Full name should contain only letters and spaces (max 32 characters)" },
+  username: { pattern: /^[a-zA-Z0-9]{1,32}$/, message: "Username should contain only letters and numbers (max 32 characters)" },
+  email: { pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/, message: "Please enter a valid email address" },
+  phoneNumber: { pattern: /^[6-9][0-9]{9}$/, message: "Phone number must start with 6-9 and have 10 digits" },
+  houseNumber: { pattern: /^.+$/, message: "Please enter a valid house number" },
+  address: { pattern: /^.+$/, message: "Please enter a valid address" },
+  password: { pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[A-Za-z\d]{6,}$/, message: "Password must be at least 6 characters with an uppercase, lowercase and number." },
 };
 
 function initFormValidation() {
@@ -195,7 +154,6 @@ function initFormValidation() {
     }
   });
 
-  // Auto-tab between OTP inputs
   document.querySelectorAll('.otp-input').forEach((input, index) => {
     input.addEventListener('input', (e) => {
       e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -203,7 +161,6 @@ function initFormValidation() {
         document.querySelectorAll('.otp-input')[index + 1].focus();
       }
     });
-    
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Backspace' && !e.target.value && index > 0) {
         document.querySelectorAll('.otp-input')[index - 1].focus();
@@ -211,23 +168,38 @@ function initFormValidation() {
     });
   });
 
-  document.getElementById("registrationForm").addEventListener("submit", function(e) {
+  document.getElementById("registrationForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    
-    if (validateForm()) {
-      if (isEmailVerified) {
-        alert('Form submitted successfully!');
-        // this.submit(); // Uncomment for actual form submission
-      } else {
-        showError(document.getElementById('email'), "Please verify your email with OTP first");
-      }
+
+    if (!validateForm()) return;
+
+    if (!isEmailVerified) {
+      showError(document.getElementById('email'), "Please verify your email with OTP first");
+      return;
     }
+
+    // ✅ Save user profile to localStorage
+    const userProfile = {
+      fullName: document.getElementById('fullName').value.trim(),
+      username: document.getElementById('username').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phoneNumber: document.getElementById('phoneNumber').value.trim(),
+      houseNumber: document.getElementById('houseNumber').value.trim(),
+      address: document.getElementById('address').value.trim(),
+      password: document.getElementById('password').value,
+      gender: document.querySelector('input[name="radio-group"]:checked')?.id || 'Not specified',
+      createdAt: new Date().toISOString()
+    };
+
+    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    alert('Registration successful!');
+    window.location.href = 'dashboard.html';
   });
 }
 
 function validateForm() {
   let isValid = true;
-  
+
   document.querySelectorAll("input[required]").forEach(input => {
     if (input.type !== "radio" && input.type !== "checkbox") {
       if (!validateInput(input, validationConfig)) isValid = false;
@@ -248,14 +220,11 @@ function validateForm() {
 }
 
 function validateInput(input, config) {
-  if (!input.value && !input.hasAttribute("required")) return true;
-
   const rules = config[input.id] || config[input.name];
   if (rules && !rules.pattern.test(input.value)) {
     showError(input, rules.message);
     return false;
   }
-
   clearError(input);
   return true;
 }
@@ -292,7 +261,7 @@ function submitGoogleRegistration() {
     showError(usernameInput, "Username is required");
     return;
   }
-  
+
   if (!/^[a-zA-Z0-9]{1,32}$/.test(usernameInput.value)) {
     showError(usernameInput, "Only letters and numbers allowed (max 32 chars)");
     return;
@@ -302,19 +271,11 @@ function submitGoogleRegistration() {
   window.location.href = '/welcome';
 }
 
-// Initialize everything
-window.onload = function() {
-  if (devMode) {
-    document.getElementById('dev-mode-notice').style.display = 'block';
-  }
-  
+// Init
+window.onload = function () {
+  if (devMode) document.getElementById('dev-mode-notice').style.display = 'block';
   initEmailJS();
-  
-  if (window.google || devMode) {
-    initGoogleSignIn();
-  } else {
-    setTimeout(initGoogleSignIn, 500);
-  }
-  
+  if (window.google || devMode) initGoogleSignIn();
+  else setTimeout(initGoogleSignIn, 500);
   initFormValidation();
 };
