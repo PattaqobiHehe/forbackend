@@ -6,7 +6,8 @@ let otpResendTimer = null;
 document.addEventListener("DOMContentLoaded", function () {
     // Initialize theme from localStorage
     initializeTheme();
-    
+    // Lodging the Complaints 
+    loadComplaintsFromStorage();
     // Initialize OTP verification
     setupOtpInputs();
     
@@ -54,6 +55,41 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('emailForm')?.addEventListener('submit', handleEmailSubmit);
     document.getElementById('passwordForm')?.addEventListener('submit', handlePasswordSubmit);
     document.getElementById('bugReportForm')?.addEventListener('submit', handleBugReportSubmit);
+
+    
+  function loadComplaintsFromStorage() {
+  const complaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
+  const feedList = document.getElementById("feedList");
+  feedList.innerHTML = ''; // Clear default dummy content
+
+  if (complaints.length === 0) {
+    feedList.innerHTML = "<p>No complaints submitted yet.</p>";
+    return;
+  }
+
+  complaints.forEach((complaint, index) => {
+    const post = document.createElement("div");
+    post.className = "post";
+
+    post.innerHTML = `
+      <div class="post-header">
+        <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic" />
+        <span class="username">User</span>
+      </div>
+      <div class="post-content">
+        <h3 class="subject">${complaint.subject}</h3>
+        <p class="description">${complaint.description}</p>
+        <p class="meta">
+          <strong>Zone:</strong> ${complaint.zoneName} |
+          <strong>Ward:</strong> ${complaint.wardNo} |
+          <strong>Type:</strong> ${complaint.complaintType}
+        </p>
+        <p class="timestamp"><em>Submitted: ${new Date(complaint.timestamp).toLocaleString()}</em></p>
+      </div>
+    `;
+    feedList.appendChild(post);
+  });
+    }
     
     // OTP verification
     document.getElementById('verifyOtpBtn')?.addEventListener('click', verifyOTP);
