@@ -1,15 +1,13 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const fileInput = document.getElementById("photo");
   const previewArea = document.querySelector(".preview-area");
   const fileInfo = document.querySelector(".file-info");
   const removeBtn = document.getElementById("remove-file");
-
   let filesArray = [];
 
   fileInput.addEventListener("change", function (e) {
     const newFiles = Array.from(e.target.files);
-    filesArray = [...newFiles];
+    filesArray = [...filesArray, ...newFiles];
     updateFilePreview();
   });
 
@@ -42,14 +40,27 @@ document.addEventListener("DOMContentLoaded", function () {
               <div class="file-index">${index + 1}</div>
             `;
             thumbnail.appendChild(removeBtn);
-            previewArea.appendChild(thumbnail);
           };
           reader.readAsDataURL(file);
+        } else {
+          thumbnail.innerHTML = `
+            <div class="file-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+              </svg>
+              <div class="file-name">${file.name}</div>
+              <div class="file-index">${index + 1}</div>
+            </div>
+          `;
+          thumbnail.appendChild(removeBtn);
         }
+
+        previewArea.appendChild(thumbnail);
       });
 
       const totalSizeMB = (totalSize / (1024 * 1024)).toFixed(2);
-      fileInfo.textContent = `${filesArray.length} file(s) selected (${totalSizeMB} MB)`;
+      fileInfo.textContent = `${filesArray.length} file${filesArray.length > 1 ? 's' : ''} selected (${totalSizeMB} MB)`;
       removeBtn.style.display = 'inline-block';
     } else {
       fileInfo.textContent = 'No files selected (Max: 1GB total)';
@@ -72,13 +83,13 @@ document.addEventListener("DOMContentLoaded", function () {
     this.style.display = 'none';
   });
 
-  document.getElementById("complaintForm").addEventListener("submit", async function (event) {
+  document.getElementById("complaintForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const photoInput = document.getElementById("photo");
+    // Validate file size
     let totalSize = 0;
-    if (photoInput.files.length > 0) {
-      Array.from(photoInput.files).forEach(file => {
+    if (fileInput.files.length > 0) {
+      Array.from(fileInput.files).forEach(file => {
         totalSize += file.size;
       });
 
@@ -88,16 +99,21 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
 
-    if (!validateFormFields()) {
-      return;
-    }
+    if (!validateFormFields()) return;
 
-    let imageBase64 = '';
-    if (photoInput.files.length > 0) {
-      const file = photoInput.files[0];
-      imageBase64 = await convertToBase64(file);
+    // Read image as Base64 (only first image is stored for simplicity)
+    const reader = new FileReader();
+    if (fileInput.files.length > 0) {
+      reader.readAsDataURL(fileInput.files[0]);
+      reader.onload = function (e) {
+        saveComplaint(e.target.result);
+      };
+    } else {
+      saveComplaint(null);
     }
+  });
 
+  function saveComplaint(imageBase64) {
     const complaintData = {
       zoneName: document.getElementById("zoneName").value,
       wardNo: document.getElementById("wardNo").value,
@@ -106,8 +122,8 @@ document.addEventListener("DOMContentLoaded", function () {
       complaintType: document.getElementById("complaintType").value,
       subject: document.getElementById("subject").value,
       description: document.getElementById("complaintDescription").value,
-      imageBase64: imageBase64,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      imageBase64: imageBase64
     };
 
     const existingComplaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
@@ -115,19 +131,6 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("userComplaints", JSON.stringify(existingComplaints));
 
     window.location.href = "dashboard.html?complaint=submitted";
-  });
-
-  function convertToBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        resolve(e.target.result);
-      };
-      reader.onerror = function (error) {
-        reject(error);
-      };
-      reader.readAsDataURL(file);
-    });
   }
 
   document.getElementById('department').addEventListener('change', updateSubDepartments);
@@ -135,5 +138,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function validateFormFields() {
-  return true;
+  return true; // Replace with custom validation if needed
 }
