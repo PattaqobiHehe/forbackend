@@ -90,29 +90,47 @@
       this.style.display = 'none';
     });
   
+document.getElementById("complaintForm").addEventListener("submit", function (event) {
+  event.preventDefault();
 
-  // Form submission
-  document.getElementById("complaintForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    
-    // Validate file size
-    const photoInput = document.getElementById("photo");
-    if (photoInput.files.length > 0) {
-      let totalSize = 0;
-      Array.from(photoInput.files).forEach(file => {
-        totalSize += file.size;
-      });
-      
-      if (totalSize > 1073741824) { // 1GB in bytes
-        alert("Total file size must be less than 1GB.");
-        return;
-      }
-    }
+  // Validate file size
+  const photoInput = document.getElementById("photo");
+  let totalSize = 0;
+  if (photoInput.files.length > 0) {
+    Array.from(photoInput.files).forEach(file => {
+      totalSize += file.size;
+    });
 
-    // Validate other form fields if needed
-    if (!validateFormFields()) {
+    if (totalSize > 1073741824) {
+      alert("Total file size must be less than 1GB.");
       return;
     }
+  }
+
+  if (!validateFormFields()) {
+    return;
+  }
+
+  // 📝 Capture Form Data
+  const complaintData = {
+    zoneName: document.getElementById("zoneName").value,
+    wardNo: document.getElementById("wardNo").value,
+    department: document.getElementById("department").value,
+    subDepartment: document.getElementById("subDepartment").value,
+    complaintType: document.getElementById("complaintType").value,
+    subject: document.getElementById("subject").value,
+    description: document.getElementById("complaintDescription").value,
+    timestamp: new Date().toISOString()
+  };
+
+  // 🗃️ Save to localStorage
+  const existingComplaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
+  existingComplaints.push(complaintData);
+  localStorage.setItem("userComplaints", JSON.stringify(existingComplaints));
+
+  // ✅ Redirect with query
+  window.location.href = "dashboard.html?complaint=submitted";
+});
 
     // Submit form (simulated)
     setTimeout(() => {
