@@ -75,7 +75,7 @@ function populateUserProfile() {
 }
 
 function populateProfileFromStorage() {
-    const user = JSON.parse(localStorage.getItem("registeredUser"));
+    const user = JSON.parse(localStorage.getItem("userProfile"));
     if (!user) return;
 
     // Fill profile fields from storage
@@ -137,11 +137,11 @@ function loadComplaintsFromStorage() {
 function handleUsernameSubmit(e) {
     e.preventDefault();
     const newUsername = document.getElementById('newUsername').value;
-    const user = JSON.parse(localStorage.getItem("registeredUser") || "{}");
+    const user = JSON.parse(localStorage.getItem("userProfile") || "{}");
     if (newUsername) {
         document.querySelector('.profile-details p:nth-child(2) strong').nextSibling.textContent = newUsername;
         user.username = newUsername;
-        localStorage.setItem("registeredUser", JSON.stringify(user));
+        localStorage.setItem("userProfile", JSON.stringify(user));
         showSuccessMessage('Username updated successfully!');
         document.getElementById('usernameChangeForm').style.display = 'none';
     }
@@ -150,11 +150,11 @@ function handleUsernameSubmit(e) {
 function handleAddressSubmit(e) {
     e.preventDefault();
     const newAddress = document.getElementById('newAddress').value;
-    const user = JSON.parse(localStorage.getItem("registeredUser") || "{}");
+    const user = JSON.parse(localStorage.getItem("userProfile") || "{}");
     if (newAddress) {
         document.querySelector('.profile-details p:nth-child(5) strong').nextSibling.textContent = newAddress;
         user.address = newAddress;
-        localStorage.setItem("registeredUser", JSON.stringify(user));
+        localStorage.setItem("userProfile", JSON.stringify(user));
         showSuccessMessage('Address updated successfully!');
         document.getElementById('addressChangeForm').style.display = 'none';
     }
@@ -163,11 +163,11 @@ function handleAddressSubmit(e) {
 function handleNumberSubmit(e) {
     e.preventDefault();
     const newNumber = document.getElementById('newNumber').value;
-    const user = JSON.parse(localStorage.getItem("registeredUser") || "{}");
+    const user = JSON.parse(localStorage.getItem("userProfile") || "{}");
     if (newNumber) {
         document.querySelector('.profile-details p:nth-child(4) strong').nextSibling.textContent = newNumber;
         user.phoneNumber = newNumber;
-        localStorage.setItem("registeredUser", JSON.stringify(user));
+        localStorage.setItem("userProfile", JSON.stringify(user));
         showSuccessMessage('Phone number updated successfully!');
         document.getElementById('numberChangeForm').style.display = 'none';
     }
@@ -176,7 +176,7 @@ function handleNumberSubmit(e) {
 function handleEmailSubmit(e) {
     e.preventDefault();
     newEmailToVerify = document.getElementById('newEmail').value.trim();
-    const user = JSON.parse(localStorage.getItem("registeredUser") || "{}");
+    const user = JSON.parse(localStorage.getItem("userProfile") || "{}");
 
     if (!validateEmail(newEmailToVerify)) {
         alert('Please enter a valid email address');
@@ -195,7 +195,7 @@ function handleEmailSubmit(e) {
 
     // Store email for later
     user.pendingEmail = newEmailToVerify;
-    localStorage.setItem("registeredUser", JSON.stringify(user));
+    localStorage.setItem("userProfile", JSON.stringify(user));
 }
 
 function verifyOTP() {
@@ -204,7 +204,7 @@ function verifyOTP() {
         const user = JSON.parse(localStorage.getItem("registeredUser") || "{}");
         user.email = user.pendingEmail;
         delete user.pendingEmail;
-        localStorage.setItem("registeredUser", JSON.stringify(user));
+        localStorage.setItem("userProfile", JSON.stringify(user));
 
         document.querySelector('.profile-details p:nth-child(3) strong').nextSibling.textContent = ` ${user.email}`;
         closeOtpModal();
