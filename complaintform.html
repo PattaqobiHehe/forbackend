@@ -204,17 +204,22 @@
         if (subDepartment === 'environment') {
           complaintType.innerHTML += '<option value="airPollution">Air Pollution in City</option>';
           complaintType.innerHTML += '<option value="waterPollution">Related to Lakes and Rivers</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'advertisement') {
           complaintType.innerHTML += '<option value="billBoard">BillBoard / सूचनापट्टी</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'education') {
           complaintType.innerHTML += '<option value="nmcSchools">Nmc schools admission leaving school and other school related services (NMC शाळा प्रवेश, शाळा सोडणे आणि इतर शाळा संबंधित सेवांबाबत तक्रारी</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'library') {
           complaintType.innerHTML += '<option value="libraryRelated">Related to library (ग्रंथालयाशी संबंधित तक्रारींबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'electrical') {
           complaintType.innerHTML += '<option value="dayNightBurning">Day night burning of street light (दिवसा रात्री पथदिवे जळत असल्याची तक्रार)</option>';
           complaintType.innerHTML += '<option value="nonBurning">Non burning of streetlight (स्ट्रीटलाइट न जळण्याबाबत तक्रार (रस्तेवरील दिवे काम करत नाहीत))</option>';
           complaintType.innerHTML += '<option value="motorPumpNotWorking">Public well motor pump not working (सार्वजनिक विहिरीचा मोटार पंप काम करत नसल्याची तक्रार)</option>';
           complaintType.innerHTML += '<option value="newStreetLight">Requirement and fitting of new street light (नवीन पथदिवे लागण्याबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'encroachment') {
           complaintType.innerHTML += '<option value="municipalLand">Encroachment on municipal land road footpath gutter (महापालिकेच्या जमिनीवर / रस्ता / फूटपाथ / गटारीवरील अतिक्रमणाबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="publicProperty">Encroachment on the public property (सार्वजनिक मालमत्तेवरील अतिक्रमणाची तक्रार)</option>';
@@ -223,8 +228,10 @@
           complaintType.innerHTML += '<option value="unauthorizedCommercialUse">Unauthorized commercial use (अनधिकृत व्यावसायिक वापराबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="unauthorizedHoardings">Unauthorized hoardings (अनधिकृत होर्डिंग्जबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="illegalConstruction">Unauthorized illegal construction (अनधिकृत/बेकायदेशीर बांधकामाबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'unauthorizedConstruction') {
           complaintType.innerHTML += '<option value="illegalConstructionChange">Illegal construction and unauthorized change of use (अवैध निर्माण एवं उपयोग में अनाधिकृत परिवर्तन के संबंध में शिकायत)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'fire') {
           complaintType.innerHTML += '<option value="unsafeBuilding">Building being unsafe (इमारत असुरक्षित असल्याची तक्रार)</option>';
           complaintType.innerHTML += '<option value="emergencyCall">Complaint related to emergency call (आपत्कालीन कॉलशी संबंधित तक्रार)</option>';
@@ -232,6 +239,7 @@
           complaintType.innerHTML += '<option value="fireNocTrade">Fire noc related to trade (फायर एनओसी संबंधित व्यापाराशी संबंधित तक्रार)</option>';
           complaintType.innerHTML += '<option value="fireCall">Related to fire call (फायर कॉलशी संबंधित तक्रार)</option>';
           complaintType.innerHTML += '<option value="unsafeTrade">Trade being unsafe (व्यापार असुरक्षित असल्याची तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'garden') {
           complaintType.innerHTML += '<option value="civicAmenities">Civic amenities in garden (उद्यानातील नागरी सुविधांबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="civilWork">Civil work in garden (बागेतील नागरी कामाबाबत तक्रार)</option>';
@@ -245,29 +253,36 @@
           complaintType.innerHTML += '<option value="playingEquipment">Playing equipment in garden (बागेत खेळण्याच्या उपकरणाबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="fallenTrees">Removal of fallen trees (पडलेली झाडे काढण्याबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="unauthorizedTreeCutting">Unauthorized tree cutting (अनधिकृत वृक्षतोडीबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'it') {
-          complaintType.innerHTML += '<option value="appWebPortal">Issue regarding app or web portal (अँप / वेबपोर्टल संबंधित समस्याच)</option>';
+          complaintType.innerHTML += '<option value="appWebPortal">Issue regarding app or web portal (अँप / वेबपोर्टल संबंधित समस्याच)</option>'; 
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'market') {
-          complaintType.innerHTML += '<option value="marketEncroachment">Complaints regarding lease (लीज़ से संबंधित शिकायतें)</option>';
+          complaintType.innerHTML += '<option value="marketEncroachment">Complaints regarding lease (लीज़ से संबंधित शिकायतें)</option>'; complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'propertyTax') {
           complaintType.innerHTML += '<option value="demandBill">Demand bill and tax receipt (डिमांड बिल आणि कर पावती विरुद्धच्या तक्रारींबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="disownerCheque">Fine on disowner cheque (डिसोनूर चेकवर दंड वसूल करण्याच्या तक्रारींबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="mutationAssessment">Mutation assessment and notice under section 155 of property (मालमत्तेच्या कलम 155 अंतर्गत उत्परिवर्तन, मूल्यांकन आणि नोटीस बाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="onlinePaymentReceipt">Related to online payment receipt (ऑनलाइन पेमेंट पावतीशी संबंधित तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'malaria') {
           complaintType.innerHTML += '<option value="spraying">Related to fogging spraying (फॉगिंग, फवारणीबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'health') {
           complaintType.innerHTML += '<option value="Birth">Birth death certificate (जन्म/मृत्यू प्रमाणपत्राबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="hospital">Hospital registration (रुग्णालयाच्या नोंदणीबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="nmcHospital">Related nmc hospitals (तक्रार संबंधित एनएमसी रुग्णालयांबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="vaccine">Vaccination and epidemic (लसीकरण आणि साथीच्या आजाराबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'advertisement1'){
           complaintType.innerHTML += '<option value="hoardings">Hoardings and banners (होर्डिंग्ज आणि बॅनरबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'publichealthengine') {
           complaintType.innerHTML += '<option value="broken">Repairing of broken chambers (तुटलेल्या चेंबरच्या दुरुस्तीबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="pipe">Repairs of pipe sewers main sewers (पाईप गटार/मुख्य गटारांच्या दुरुस्तीबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="missingManhole">Replacement of missing damaged manhole covers (गहाळ खराब झालेले मॅनहोल कव्हर बदलण्याबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="sewageWater">Stopping leakage of sewage water in nalla (नाल्यातील सांडपाण्याची गळती थांबविण्याबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'publicwork1'){
           complaintType.innerHTML += '<option value="bridges">Bridges flyovers subways minor repairs (पूल/फ्लायओव्हर्स/भुयारी मार्गाबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="repair">Construction repair of nallah wall culverts (नाला भिंत/कल्व्हर्टचे बांधकाम/दुरुस्ती)</option>';
@@ -278,10 +293,12 @@
           complaintType.innerHTML += '<option value="poorRoad">Poor quality of road work (रस्त्याच्या कामाचा दर्जा निकृष्ट)</option>';
           complaintType.innerHTML += '<option value="potHole">Pot hole fill up repairs to the damage surface (पॉट होल फिल अप/नुकसान झालेल्या पृष्ठभागावरील दुरुस्तीबाबत तक्रार) </option>';
           complaintType.innerHTML += '<option value="manhole">Repair of manholes foothpath and road cutting (मॅनहोल, फूटपाथ आणि रोड कटिंगच्या दुरुस्तीबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'socialWelfare'){
           complaintType.innerHTML += '<option value="handicap">Handicap yojana (अपंग योजनेबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="mahila">Mahila baal kayan yojana (महिला बाल कायण योजनेबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="socialScheme">Social welfare scheme (समाजकल्याण योजनेबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         } else if (subDepartment === 'healthsanitation'){
           complaintType.innerHTML += '<option value="absentee">Absenteeism of sweepers (सफाई कामगारांच्या गैरहजेरीबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="bioMedical">Bio medical waste health hazard waste removal (जेव वैद्यकीय कचरा/आरोग्य धोक्याचा कचरा काढण्याबाबत तक्रार)</option>';
@@ -300,22 +317,26 @@
           complaintType.innerHTML += '<option value="garbageRemoval">Removal of garbage (कचरा उचलण्याबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="chokedSewer">Sewer line choke and blockages (सीवर लाइन चोक आणि ब्लॉकजेसबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="bldgmaterialsOnRoad">Stacking of bldg materials on road (बिल्डीजी साहित्य रस्त्यावर साचून ठेवल्याबद्दल तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         }else if (subDepartment === 'veternary'){
           complaintType.innerHTML += '<option value="slaughterHouse">Illegal slaughter house (अवैध कत्तलखान्याबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="nuisanceRodents">Nuisance due to rodents (उंदरांमुळे होणाऱ्या उपद्रवाबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="strayDogs">Related to stray dogs sterilization (भटक्या कुत्र्यांच्या नसबं दीशी संबंधित समस्यांबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="deadAnimals">Straying roaming of animals other than dogs dead animal (कुत्र्यांव्यतिरिक्त इतर प्राण्यांच्या भटक्या/भटकण्याबाबत तक्रार/मृत जनावर)</option>';
           complaintType.innerHTML += '<option value="illegalAnimal">Unlicensed pet dog (विना परवाना पाळीव कुत्र्याबाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         }else if(subDepartment ==='town'){
           complaintType.innerHTML += '<option value="certificateOccupancy">Occupancy certificate (भोगवटा प्रमाणपत्राबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="mobileTower">Permission for mobile tower (मोबाईल टॉवरच्या परवानगीबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="buildingPermission">Related to building permission (बांधकाम परवानगीशी संबंधित तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         }else if(subDepartment === 'transportDept'){
           complaintType.innerHTML += '<option value="busStop">Bus stop related (बस स्टॉप संबंधित तक्रार )</option>';
           complaintType.innerHTML += '<option value="ticket">Duplicate tickets (डुप्लिकेट तिकिटे बद्दल तक्रार )</option>';
           complaintType.innerHTML += '<option value="excessFare">Excess fare charges (भाडे शुल्क जास्त घेण्याबाबत तक्रार )</option>';
           complaintType.innerHTML += '<option value="wrongRoute">Route not followed (मार्ग फॉलो केलेला नाही बाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="unsafeDriving">Unsafe driving(असुरक्षित ड्रायव्हिंग बाबत तक्रार)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         }else if(subDepartment === 'waterDept'){
           complaintType.innerHTML += '<option value="leakageComplaint">complaint regarding leakage (गळतीबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="lowPressure">Complaint regarding low pressure (कमी दाबाची तक्रार)</option>';
@@ -325,6 +346,7 @@
           complaintType.innerHTML += '<option value="waterMeter">Removal of water meter (पाण्याचे मीटर काढण्याबाबत तक्रार)</option>';
           complaintType.innerHTML += '<option value="shortageWater">Shortage of water supply (पाणीपुरवठा कमी झाल्याची तक्रार)</option>';
           complaintType.innerHTML += '<option value="changeWater">Unauthorized use of water change of user (वापरकर्त्याचे पाणी-बदलाचा अनधिकृत वापर)</option>';
+          complaintType.innerHTML += '<option value="other">Other (Please specify in description)</option>';
         }
   }
       </script>
