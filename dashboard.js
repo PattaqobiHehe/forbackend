@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     loadComplaintsFromStorage();
     setupOtpInputs();
     populateProfileFromStorage(); // 🔄 Load registered user data
+    populateUserProfile(); // ✅ This shows user profile from registration
 
     showSection('profile');
 
