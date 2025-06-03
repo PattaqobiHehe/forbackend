@@ -105,6 +105,3 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById('department').addEventListener('change', updateSubDepartments);
   document.getElementById('subDepartment').addEventListener('change', updateComplaintTypes);
 });
-
-function updateSubDepartments() {}
-function updateComplaintTypes() {}
