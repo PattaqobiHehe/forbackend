@@ -82,11 +82,10 @@ function initGoogleSignIn() {
 
 // OTP Functions
 function showOtpModal() {
-  alert("OTP button clicked"); // ✅ To confirm the click is working at all
   const emailInput = document.getElementById('email');
   const email = emailInput.value.trim();
   
-  if (!OTPManager.validateEmail(email)) {
+  if (!validateEmail(email)) {
     showError(emailInput, "Please enter a valid email first");
     return;
   }
@@ -95,18 +94,15 @@ function showOtpModal() {
   otpButton.disabled = true;
   otpButton.textContent = 'Sending...';
   
-  OTPManager.sendOTP(email).then(success => {
-    if (success) {
-      document.getElementById('otpModal').style.display = 'flex';
-      document.querySelectorAll('.otp-input').forEach(input => input.value = '');
-      document.getElementById('otp-input1').focus();
-      OTPManager.startResendTimer(updateResendUI);
-    } else {
-      alert('Failed to send OTP. Please try again.');
-    }
+  // Simulate OTP sending (replace with actual API call)
+  setTimeout(() => {
+    document.getElementById('otpModal').style.display = 'flex';
+    document.querySelectorAll('.otp-input').forEach(input => input.value = '');
+    document.getElementById('otp-input1').focus();
+    startResendTimer();
     otpButton.disabled = false;
     otpButton.textContent = 'Send OTP';
-  });
+  }, 1000);
 }
 
 function verifyOtp() {
@@ -116,10 +112,13 @@ function verifyOtp() {
   const otp4 = document.getElementById('otp-input4').value;
   const enteredOtp = otp1 + otp2 + otp3 + otp4;
 
-  if (OTPManager.verifyOTP(enteredOtp)) {
+  // Simulate OTP verification (replace with actual verification)
+  if (enteredOtp.length === 4) { // Basic check for demo purposes
     isEmailVerified = true;
-    document.getElementById('bt').textContent = 'Verified ✓';
-    document.getElementById('bt').style.backgroundColor = '#4CAF50';
+    const otpButton = document.getElementById('bt');
+    otpButton.textContent = 'Verified ✓';
+    otpButton.style.backgroundColor = '#4CAF50';
+    otpButton.disabled = true;
     closeOtpModal();
     clearError(document.getElementById('email'));
   } else {
@@ -127,33 +126,39 @@ function verifyOtp() {
   }
 }
 
-function updateResendUI(seconds, canResend) {
+function startResendTimer() {
+  let seconds = 30;
   const resendNote = document.querySelector('.resendNote');
-  if (canResend) {
-    resendNote.innerHTML = 'Didn\'t receive the code? <button class="resendBtn" onclick="resendOtp()">Resend Code</button>';
-  } else {
+  
+  resendNote.textContent = `Resend OTP in ${seconds} seconds`;
+  
+  const timer = setInterval(() => {
+    seconds--;
     resendNote.textContent = `Resend OTP in ${seconds} seconds`;
-  }
+    
+    if (seconds <= 0) {
+      clearInterval(timer);
+      resendNote.innerHTML = 'Didn\'t receive the code? <button class="resendBtn" onclick="resendOtp()">Resend Code</button>';
+    }
+  }, 1000);
 }
 
 function resendOtp() {
   const email = document.getElementById('email').value;
-  if (!OTPManager.validateEmail(email)) {
+  if (!validateEmail(email)) {
     alert('Please enter your email first');
     return;
   }
   
-  OTPManager.sendOTP(email).then(success => {
-    if (success) {
-      OTPManager.startResendTimer(updateResendUI);
-      alert('New OTP has been sent to your email');
-    }
-  });
+  // Simulate OTP resend (replace with actual API call)
+  setTimeout(() => {
+    startResendTimer();
+    alert('New OTP has been sent to your email');
+  }, 1000);
 }
 
 function closeOtpModal() {
   document.getElementById('otpModal').style.display = 'none';
-  OTPManager.clearTimer();
 }
 
 // Form Validation
@@ -214,31 +219,54 @@ function initFormValidation() {
   document.getElementById("registrationForm").addEventListener("submit", function(e) {
     e.preventDefault();
     
-    if (validateForm()) {
-      if (isEmailVerified) {
-        alert('Form submitted successfully!');
-        // this.submit(); // Uncomment for actual form submission
-      } else {
-        showError(document.getElementById('email'), "Please verify your email with OTP first");
-      }
+    // Validate form and check email verification
+    const isValid = validateForm();
+    const emailInput = document.getElementById('email');
+    
+    if (!isValid) {
+      return;
     }
+    
+    if (!isEmailVerified) {
+      showError(emailInput, "Please verify your email with OTP first");
+      return;
+    }
+    
+    // Save user profile to localStorage
+    const userProfile = {
+      fullName: document.getElementById('fullName').value.trim(),
+      username: document.getElementById('username').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phoneNumber: document.getElementById('phoneNumber').value.trim(),
+      houseNumber: document.getElementById('houseNumber').value.trim(),
+      address: document.getElementById('address').value.trim(),
+      gender: document.querySelector('input[name="radio-group"]:checked')?.value || ''
+    };
+    
+    localStorage.setItem('userProfile', JSON.stringify(userProfile));
+    
+    // Redirect to dashboard
+    window.location.href = 'dashboard.html';
   });
 }
 
 function validateForm() {
   let isValid = true;
   
+  // Validate all required fields
   document.querySelectorAll("input[required]").forEach(input => {
     if (input.type !== "radio" && input.type !== "checkbox") {
       if (!validateInput(input, validationConfig)) isValid = false;
     }
   });
 
+  // Validate gender selection
   if (!document.querySelector('input[name="radio-group"]:checked')) {
     showError(document.querySelector('.gender-details-box'), "Please select a gender");
     isValid = false;
   }
 
+  // Validate reCAPTCHA
   if (!grecaptcha.getResponse()) {
     showError(document.querySelector('.g-recaptcha'), "Please complete the reCAPTCHA");
     isValid = false;
@@ -277,6 +305,11 @@ function clearError(element) {
   element.classList.remove("invalid");
 }
 
+function validateEmail(email) {
+  const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/;
+  return re.test(email);
+}
+
 // Modal functions
 function showUsernameModal() {
   document.getElementById('usernameModal').style.display = 'flex';
@@ -298,8 +331,22 @@ function submitGoogleRegistration() {
     return;
   }
 
+  // Save Google user profile to localStorage
+  const userProfile = {
+    username: usernameInput.value.trim(),
+    email: usernameInput.placeholder,
+    // Add other default values as needed
+    fullName: "Google User",
+    phoneNumber: "",
+    houseNumber: "",
+    address: "",
+    gender: ""
+  };
+  
+  localStorage.setItem('userProfile', JSON.stringify(userProfile));
+  
   alert(`Account created with username: ${usernameInput.value}`);
-  window.location.href = '/welcome';
+  window.location.href = 'dashboard.html';
 }
 
 // Initialize everything
@@ -318,20 +365,3 @@ window.onload = function() {
   
   initFormValidation();
 };
-
-
-const userProfile = {
-  fullName: document.getElementById('fullName').value.trim(),
-  username: document.getElementById('username').value.trim(),
-  email: document.getElementById('email').value.trim(),
-  phoneNumber: document.getElementById('phoneNumber').value.trim(),
-  houseNumber: document.getElementById('houseNumber').value.trim(),
-  address: document.getElementById('address').value.trim(),
-  gender: document.querySelector('input[name="radio-group"]:checked').value
-};
-
-// Store to localStorage
-localStorage.setItem('userProfile', JSON.stringify(userProfile));
-
-// Redirect to dashboard
-window.location.href = 'dashboard.html';
