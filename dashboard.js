@@ -6,26 +6,13 @@ let otpResendTimer = null;
 document.addEventListener("DOMContentLoaded", function () {
     // Initialize theme from localStorage
     initializeTheme();
-    // Lodging the Complaints 
+    // Load the Complaints 
     loadComplaintsFromStorage();
     // Initialize OTP verification
     setupOtpInputs();
     
-    // Example data population (can be removed if not needed)
-    const complaints = [
-        { id: 1, title: "Pothole on Main St", status: "Pending" },
-        { id: 2, title: "Garbage not collected", status: "Resolved" },
-    ];
-    
-    const activities = [
-        { id: 1, text: "Your complaint 'Pothole on Main St' has been updated." },
-        { id: 2, text: "New comment on your complaint 'Garbage not collected'." },
-    ];
-    
-    const notifications = [
-        { id: 1, text: "New system update available." },
-        { id: 2, text: "Reminder: Submit your monthly feedback." },
-    ];
+    // Populate user profile from localStorage
+    populateUserProfile();
     
     // Show the My Profile section by default when the page loads
     showSection('profile');
@@ -46,6 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("logoutBtn")?.addEventListener("click", () => {
         alert("Logging out...");
         // Redirect to login page
+        window.location.href = 'index.html';
     });
     
     // Form submissions
@@ -55,19 +43,30 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('emailForm')?.addEventListener('submit', handleEmailSubmit);
     document.getElementById('passwordForm')?.addEventListener('submit', handlePasswordSubmit);
     document.getElementById('bugReportForm')?.addEventListener('submit', handleBugReportSubmit);
+});
 
 function populateUserProfile() {
-  const profile = JSON.parse(localStorage.getItem("userProfile"));
-  if (!profile) return;
+    const profile = JSON.parse(localStorage.getItem("userProfile"));
+    if (!profile) {
+        console.error("No user profile found in localStorage");
+        return;
+    }
 
-  document.getElementById("profileName").textContent = profile.fullName || "";
-  document.getElementById("profileUsername").textContent = profile.username || "";
-  document.getElementById("profileEmail").textContent = profile.email || "";
-  document.getElementById("profilePhone").textContent = profile.phoneNumber || "";
-  document.getElementById("profileAddress").textContent = profile.address || "";
-  document.getElementById("profileGender").textContent = profile.gender || "";
-}
+    // Update profile card
+    document.getElementById("profileName").textContent = profile.fullName || "Not provided";
+    document.getElementById("profileUsername").textContent = profile.username || "Not provided";
+    document.getElementById("profileEmail").textContent = profile.email || "Not provided";
+    document.getElementById("profilePhone").textContent = profile.phoneNumber || "Not provided";
+    document.getElementById("profileAddress").textContent = profile.address || "Not provided";
+    document.getElementById("profileGender").textContent = profile.gender || "Not specified";
     
+    // Update form placeholders with current values
+    document.getElementById('newUsername')?.setAttribute('placeholder', profile.username || '');
+    document.getElementById('newAddress')?.setAttribute('placeholder', profile.address || '');
+    document.getElementById('newNumber')?.setAttribute('placeholder', profile.phoneNumber || '');
+    document.getElementById('newEmail')?.setAttribute('placeholder', profile.email || '');
+}
+
     function loadComplaintsFromStorage() {
   const complaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
   const complaintsList = document.getElementById("userComplaintsList");
