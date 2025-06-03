@@ -60,25 +60,13 @@ function populateUserProfile() {
   const profile = JSON.parse(localStorage.getItem("userProfile"));
   if (!profile) return;
 
-  const profileDetails = document.querySelector('.profile-details');
-  if (!profileDetails) return;
-
-  const fields = [
-    { label: 'Name', value: profile.fullName },
-    { label: 'Username', value: profile.username },
-    { label: 'Email', value: profile.email },
-    { label: 'Phone', value: profile.phoneNumber },
-    { label: 'House No.', value: profile.houseNumber },
-    { label: 'Address', value: profile.address },
-    { label: 'Gender', value: profile.gender }
-  ];
-
-  profileDetails.innerHTML = fields.map(f =>
-    `<p><strong>${f.label}:</strong> <span>${f.value || ''}</span></p>`
-  ).join('');
+  document.getElementById("profileName").textContent = profile.fullName || "";
+  document.getElementById("profileUsername").textContent = profile.username || "";
+  document.getElementById("profileEmail").textContent = profile.email || "";
+  document.getElementById("profilePhone").textContent = profile.phoneNumber || "";
+  document.getElementById("profileAddress").textContent = profile.address || "";
+  document.getElementById("profileGender").textContent = profile.gender || "";
 }
-
-
     
     function loadComplaintsFromStorage() {
   const complaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
