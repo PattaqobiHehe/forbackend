@@ -56,21 +56,19 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('passwordForm')?.addEventListener('submit', handlePasswordSubmit);
     document.getElementById('bugReportForm')?.addEventListener('submit', handleBugReportSubmit);
 
-    
-  function loadComplaintsFromStorage() {
+    function loadComplaintsFromStorage() {
   const complaints = JSON.parse(localStorage.getItem("userComplaints") || "[]");
-  const feedList = document.getElementById("feedList");
-  feedList.innerHTML = '';
+  const complaintsList = document.getElementById("userComplaintsList");
+  complaintsList.innerHTML = '';
 
   if (complaints.length === 0) {
-    feedList.innerHTML = "<p>No complaints submitted yet.</p>";
+    complaintsList.innerHTML = "<p>No complaints submitted yet.</p>";
     return;
   }
 
-  complaints.forEach((complaint, index) => {
+  complaints.forEach((complaint) => {
     const post = document.createElement("div");
     post.className = "post";
-
     post.innerHTML = `
       <div class="post-header">
         <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic" />
@@ -78,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
       </div>
       <div class="post-content">
         <h3 class="subject">${complaint.subject}</h3>
-        ${complaint.imageBase64 ? `<img src="${complaint.imageBase64}" alt="Attached Image" class="complaint-image" />` : ''}
+        ${complaint.imageBase64 ? `<img src="${complaint.imageBase64}" alt="Complaint Image" class="complaint-image" />` : ''}
         <p class="description">${complaint.description}</p>
         <p class="meta">
           <strong>Zone:</strong> ${complaint.zoneName} |
@@ -92,9 +90,10 @@ document.addEventListener("DOMContentLoaded", function () {
         <button class="save-btn"><i class="fas fa-bookmark"></i> Save</button>
       </div>
     `;
-    feedList.appendChild(post);
+    complaintsList.appendChild(post);
   });
-  }
+    }
+
     
     // OTP verification
     document.getElementById('verifyOtpBtn')?.addEventListener('click', verifyOTP);
@@ -104,7 +103,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('toggle')?.addEventListener('change', toggleTheme);
     
     // Notification preferences
-    document.getElementById('emailNotifications')?.addEventListener('change', function() {
+    document.getElementById('emailNotifications')?.addEventListener('change',
+                                                                    
+                                                                    function() {
         toggleSubOptions('emailNotifications', 'emailSubOptions');
     });
     
