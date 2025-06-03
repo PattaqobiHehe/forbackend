@@ -318,3 +318,20 @@ window.onload = function() {
   
   initFormValidation();
 };
+
+
+const userProfile = {
+  fullName: document.getElementById('fullName').value.trim(),
+  username: document.getElementById('username').value.trim(),
+  email: document.getElementById('email').value.trim(),
+  phoneNumber: document.getElementById('phoneNumber').value.trim(),
+  houseNumber: document.getElementById('houseNumber').value.trim(),
+  address: document.getElementById('address').value.trim(),
+  gender: document.querySelector('input[name="radio-group"]:checked').value
+};
+
+// Store to localStorage
+localStorage.setItem('userProfile', JSON.stringify(userProfile));
+
+// Redirect to dashboard
+window.location.href = 'dashboard.html';
