@@ -543,6 +543,33 @@ function resetBugReportForm() {
     bugReportMessage.style.display = 'none';
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  const openModalBtn = document.getElementById('openBugReportModal');
+  const bugModal = document.getElementById('bugReportModal');
+  const closeModalBtn = document.querySelector('.close-bug-modal');
+
+  if (openModalBtn && bugModal) {
+    openModalBtn.addEventListener('click', () => {
+      bugModal.style.display = 'flex';
+    });
+  }
+
+  if (closeModalBtn && bugModal) {
+    closeModalBtn.addEventListener('click', () => {
+      bugModal.style.display = 'none';
+    });
+  }
+
+  // Optional: close modal when clicking outside of it
+  window.addEventListener('click', function (e) {
+    if (e.target === bugModal) {
+      bugModal.style.display = 'none';
+    }
+  });
+});
+
+
+
 function showSuccessMessage(title, subtitle = '') {
     const successMessage = document.getElementById('successMessage');
     const messageText = document.querySelector('.message-text');
