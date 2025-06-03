@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     initializeTheme();
     loadComplaintsFromStorage();
     setupOtpInputs();
-    populateProfileFromStorage(); // 🔄 Load registered user data
     populateUserProfile(); // ✅ This shows user profile from registration
 
     showSection('profile');
@@ -72,21 +71,6 @@ function populateUserProfile() {
   profileDetails.innerHTML = fields.map(f =>
     `<p><strong>${f.label}:</strong> <span>${f.value || ''}</span></p>`
   ).join('');
-}
-
-function populateProfileFromStorage() {
-    const user = JSON.parse(localStorage.getItem("userProfile"));
-    if (!user) return;
-
-    // Fill profile fields from storage
-    const profile = document.querySelector('.profile-details');
-    if (!profile) return;
-
-    profile.querySelector('p:nth-child(2) strong').nextSibling.textContent = ` ${user.username}`;
-    profile.querySelector('p:nth-child(3) strong').nextSibling.textContent = ` ${user.email}`;
-    profile.querySelector('p:nth-child(4) strong').nextSibling.textContent = ` ${user.phoneNumber}`;
-    profile.querySelector('p:nth-child(5) strong').nextSibling.textContent = ` ${user.address}`;
-    profile.querySelector('p:nth-child(6) strong').nextSibling.textContent = ` ${user.gender}`;
 }
 
 function loadComplaintsFromStorage() {
@@ -201,7 +185,7 @@ function handleEmailSubmit(e) {
 function verifyOTP() {
     const otp = Array.from(document.querySelectorAll('.otp-input')).map(input => input.value).join('');
     if (otp.length === 4) {
-        const user = JSON.parse(localStorage.getItem("registeredUser") || "{}");
+        const user = JSON.parse(localStorage.getItem("userProfile") || "{}");
         user.email = user.pendingEmail;
         delete user.pendingEmail;
         localStorage.setItem("userProfile", JSON.stringify(user));
