@@ -210,11 +210,13 @@
                 <input type="file" accept=".jpg, .jpeg, .png," id="profilePicture" name="profilePicture" accept="image/*" onchange="previewImage(event)" />
               </div>
               <div class="profile-details">
-                <p><strong>Name:</strong> John Doe</p>
-                <p><strong>Username:</strong> J_Doe123</p>
-                <p><strong>Email:</strong> john.doe@example.com</p>
-                <p><strong>Phone:</strong> +1234567890</p>
-                <p><strong>Address:</strong> 123 Main St, City, Country</p>
+  <p><strong>Name:</strong> <span id="profileName">John Doe</span></p>
+  <p><strong>Username:</strong> <span id="profileUsername">J_Doe123</span></p>
+  <p><strong>Email:</strong> <span id="profileEmail">john.doe@example.com</span></p>
+  <p><strong>Phone:</strong> <span id="profilePhone">+1234567890</span></p>
+  <p><strong>Address:</strong> <span id="profileAddress">123 Main St, City, Country</span></p>
+  <p><strong>Gender:</strong> <span id="profileGender">Other</span></p>
+              </div>
               </div>
             </div>
         </div>
